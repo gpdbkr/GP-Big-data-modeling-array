@@ -8,7 +8,7 @@
 https://www.youtube.com/watch?v=_8G0v__y63g
 
 
-## 테스트 스크립트 내용
+## 스크립트 셋업
 
 ```
 1) 스크립트 unzip
@@ -65,4 +65,8 @@ sql_raw_0.sql                 # normal data type을 위한 쿼리
 sql_raw_19.sql
 
 ./log:                        # 로그 폴더 
+
 ```
+
+
+
