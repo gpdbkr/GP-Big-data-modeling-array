@@ -1,0 +1,182 @@
+Timing is on.
+set search_path to equipment,public
+SET
+Time: 12.035 ms
+DROP SCHEMA IF EXISTS  equipment CASCADE;
+DROP SCHEMA
+Time: 18.727 ms
+CREATE SCHEMA equipment;
+CREATE SCHEMA
+Time: 25.461 ms
+CREATE TABLE equipment.eqp_info (
+    eqp_cd integer,
+    eqp_nm text
+) DISTRIBUTED BY (eqp_cd);
+CREATE TABLE
+Time: 51.203 ms
+CREATE TABLE equipment.unit_info (
+    eqp_cd integer,
+    eqp_nm text,
+    unit_cd integer,
+    unit_nm text
+) DISTRIBUTED BY (unit_cd);
+CREATE TABLE
+Time: 41.431 ms
+CREATE TABLE equipment.param_info (
+    eqp_cd integer,
+    eqp_nm text,
+    unit_cd integer,
+    unit_nm text,
+    param_cd numeric,
+    param_nm text,
+    create_time timestamp,
+    update_time timestamp,
+    delete_flag boolean default false
+) DISTRIBUTED BY (param_cd);
+CREATE TABLE
+Time: 29.671 ms
+CREATE TABLE equipment.process_info (
+    process_cd integer,
+    process_nm text
+) DISTRIBUTED BY (process_cd);
+CREATE TABLE
+Time: 29.493 ms
+CREATE TABLE equipment.step_info (
+    process_cd integer,
+    process_nm text,
+    step_cd integer,
+    step_seq text
+) DISTRIBUTED BY (step_cd);
+CREATE TABLE
+Time: 28.796 ms
+CREATE TABLE equipment.eq_data_raw (
+    line text,
+    eqp_cd integer,
+    unit_cd integer,
+    param_cd numeric,
+    processid text,
+    stepseq text,
+    root_nm text,
+    leaf_nm integer,
+    act_time timestamp without time zone,
+    param_value numeric
+)
+WITH (appendonly=true, compresstype=zstd, compresslevel=7) DISTRIBUTED RANDOMLY PARTITION BY RANGE(act_time)
+          (
+          partition p2201 start('2022-01-01') end ('2022-02-01'),
+          partition p2202 start('2022-02-01') end ('2022-03-01'),
+          partition p2203 start('2022-03-01') end ('2022-04-01'),
+          partition p2204 start('2022-04-01') end ('2022-05-01'),
+          partition p2205 start('2022-05-01') end ('2022-06-01'),
+          partition p2206 start('2022-06-01') end ('2022-07-01'),
+          partition p2207 start('2022-07-01') end ('2022-08-01'),
+          partition p2208 start('2022-08-01') end ('2022-09-01'),
+          partition p2209 start('2022-09-01') end ('2022-10-01'),
+          partition p2210 start('2022-10-01') end ('2022-11-01'),
+          partition p2211 start('2022-11-01') end ('2022-12-01'),
+          partition p2212 start('2022-12-01') end ('2023-01-01'),
+          DEFAULT PARTITION pothers
+          );
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_pothers" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2201" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2202" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2203" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2204" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2205" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2206" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2207" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2208" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2209" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2210" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2211" for table "eq_data_raw"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_1_prt_p2212" for table "eq_data_raw"
+CREATE TABLE
+Time: 571.839 ms
+CREATE TABLE equipment.eq_data_raw_inc (
+    line text,
+    eqp_cd integer,
+    unit_cd integer,
+    param_cd numeric,
+    processid text,
+    stepseq text,
+    root_nm text,
+    leaf_nm integer,
+    act_time timestamp without time zone,
+    param_value numeric
+)
+WITH (appendonly=true, compresstype=zstd, compresslevel=7) DISTRIBUTED RANDOMLY PARTITION BY RANGE(act_time)
+          (
+          partition p2201 start('2022-01-01') end ('2022-02-01'),
+          partition p2202 start('2022-02-01') end ('2022-03-01'),
+          partition p2203 start('2022-03-01') end ('2022-04-01'),
+          partition p2204 start('2022-04-01') end ('2022-05-01'),
+          partition p2205 start('2022-05-01') end ('2022-06-01'),
+          partition p2206 start('2022-06-01') end ('2022-07-01'),
+          partition p2207 start('2022-07-01') end ('2022-08-01'),
+          partition p2208 start('2022-08-01') end ('2022-09-01'),
+          partition p2209 start('2022-09-01') end ('2022-10-01'),
+          partition p2210 start('2022-10-01') end ('2022-11-01'),
+          partition p2211 start('2022-11-01') end ('2022-12-01'),
+          partition p2212 start('2022-12-01') end ('2023-01-01'),
+          DEFAULT PARTITION pothers
+          );
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_pothers" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2201" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2202" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2203" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2204" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2205" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2206" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2207" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2208" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2209" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2210" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2211" for table "eq_data_raw_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_inc_1_prt_p2212" for table "eq_data_raw_inc"
+CREATE TABLE
+Time: 1571.079 ms
+CREATE TABLE equipment.eq_data_raw_with_array_inc (
+    line text,
+    eqp_cd integer,
+    unit_cd integer,
+    param_cd numeric,
+    processid text[],
+    stepseq text[],
+    root_nm text[],
+    leaf_nm integer[],
+    act_time timestamp without time zone[],
+    param_value numeric[],
+    create_time date
+)
+WITH (appendonly=true, compresstype=zstd, compresslevel=7) DISTRIBUTED RANDOMLY PARTITION BY RANGE(create_time)
+          (
+          partition p2201 start('2022-01-01') end ('2022-02-01'),
+          partition p2202 start('2022-02-01') end ('2022-03-01'),
+          partition p2203 start('2022-03-01') end ('2022-04-01'),
+          partition p2204 start('2022-04-01') end ('2022-05-01'),
+          partition p2205 start('2022-05-01') end ('2022-06-01'),
+          partition p2206 start('2022-06-01') end ('2022-07-01'),
+          partition p2207 start('2022-07-01') end ('2022-08-01'),
+          partition p2208 start('2022-08-01') end ('2022-09-01'),
+          partition p2209 start('2022-09-01') end ('2022-10-01'),
+          partition p2210 start('2022-10-01') end ('2022-11-01'),
+          partition p2211 start('2022-11-01') end ('2022-12-01'),
+          partition p2212 start('2022-12-01') end ('2023-01-01'),
+          DEFAULT PARTITION pothers
+          );
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_pothers" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2201" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2202" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2203" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2204" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2205" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2206" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2207" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2208" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2209" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2210" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2211" for table "eq_data_raw_with_array_inc"
+NOTICE:  CREATE TABLE will create partition "eq_data_raw_with_array_inc_1_prt_p2212" for table "eq_data_raw_with_array_inc"
+CREATE TABLE
+Time: 1991.879 ms
+Result:|./1.02_create_tbl.sh|2022-12-27 21:02:58|2022-12-27 21:03:03|5

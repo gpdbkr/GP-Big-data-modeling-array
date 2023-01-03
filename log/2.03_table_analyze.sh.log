@@ -1,0 +1,33 @@
+Timing is on.
+set search_path to equipment,public
+SET
+Time: 17.234 ms
+Timing is off.
+SET search_path = equipment, pg_catalog;
+SET
+Timing is on.
+analyze equipment.eqp_info	;
+ANALYZE
+Time: 45.254 ms
+analyze equipment.eq_data_raw ;
+ANALYZE
+Time: 8176.217 ms
+analyze equipment.param_info ;
+ANALYZE
+Time: 2440.448 ms
+analyze equipment.process_info ;
+ANALYZE
+Time: 8.558 ms
+analyze equipment.step_info ;
+ANALYZE
+Time: 138.120 ms
+analyze equipment.unit_info ;
+ANALYZE
+Time: 367.525 ms
+analyze equipment.eq_data_raw_inc;
+ANALYZE
+Time: 26638.625 ms
+analyze equipment.eq_data_raw_with_array_inc;
+ANALYZE
+Time: 37084.338 ms
+Result:|./1.09_table_analyze.sh|2023-01-02 01:22:08|2023-01-02 01:23:23|75

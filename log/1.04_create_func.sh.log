@@ -1,0 +1,11 @@
+Timing is on.
+SET
+Time: 10.437 ms
+CREATE FUNCTION
+Time: 42.583 ms
+CREATE FUNCTION
+Time: 15.689 ms
+CREATE FUNCTION
+Time: 19.881 ms
+Time: 0.134 ms
+Result:|./1.04_create_func.sh|2023-01-01 23:15:01|2023-01-01 23:15:01|0

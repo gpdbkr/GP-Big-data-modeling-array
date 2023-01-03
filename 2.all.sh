@@ -1,0 +1,11 @@
+./2.01_gen_array.sh
+./2.02_add_index.sh
+./2.03_table_analyze.sh
+./2.04_table_size.sh
+./2.05_table_cnt.sh
+./2.06_compare_data_model.sh
+./2.11_raw_single_perf.sh
+./2.12_array_single_perf.sh
+./2.21_raw_multi_perf.sh
+./2.22_array_multi_perf.sh
+./2.23_multi_perf_result.sh

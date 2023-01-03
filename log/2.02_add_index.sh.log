@@ -1,0 +1,14 @@
+Timing is on.
+set search_path to equipment,public
+SET
+Time: 10.743 ms
+create index idx_param_info_01 on equipment.param_info(param_cd);
+CREATE INDEX
+Time: 8119.593 ms
+create index idx_eq_data_raw_inc_03 on equipment.eq_data_raw_inc (param_cd);
+CREATE INDEX
+Time: 817456.349 ms
+create index idx_eq_data_raw_with_array_inc_03 on equipment.eq_data_raw_with_array_inc (param_cd);
+CREATE INDEX
+Time: 1508.690 ms
+Result:|./1.08_add_index.sh|2023-01-01 23:42:36|2023-01-01 23:56:23|827

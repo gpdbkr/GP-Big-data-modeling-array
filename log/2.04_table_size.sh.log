@@ -1,0 +1,15 @@
+Time: 11.675 ms
+ schema_nm |           tb_nm            | tb_total_mb | table_size_mb | index_size_mb 
+-----------+----------------------------+-------------+---------------+---------------
+ equipment | eq_data_raw                |        4623 |          4623 |             0
+ equipment | eq_data_raw_inc            |       48887 |         23232 |         25655
+ equipment | eq_data_raw_with_array_inc |        7862 |          7706 |           156
+ equipment | eqp_info                   |           1 |             1 |             0
+ equipment | param_info                 |        2267 |          1871 |           396
+ equipment | process_info               |           1 |             1 |             0
+ equipment | step_info                  |           1 |             1 |             0
+ equipment | unit_info                  |           6 |             6 |             0
+(8 rows)
+
+Time: 126.423 ms
+Result:|./2.04_table_size.sh|2023-01-03 04:48:32|2023-01-03 04:48:32|0

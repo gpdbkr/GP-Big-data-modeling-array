@@ -1,0 +1,62 @@
+Timing is on.
+set search_path to equipment,public
+SET
+Time: 11.272 ms
+create database demo encoding='UTF8';
+ERROR:  database "demo" already exists
+Time: 0.308 ms
+select 'demo' dbname, pg_size_pretty(pg_Database_size('demo'));
+ dbname | pg_size_pretty 
+--------+----------------
+ demo   | 222 MB
+(1 row)
+
+Time: 3.263 ms
+SELECT
+    t.schemaname,
+    t.tablename,
+    t.tableowner
+FROM
+    pg_tables t
+    LEFT JOIN pg_class c ON t.tablename = c.relname
+WHERE
+    t.schemaname NOT IN ('pg_catalog', 'information_schema','gp_toolkit')
+ORDER BY 1, 2;
+ schemaname | tablename | tableowner 
+------------+-----------+------------
+(0 rows)
+
+Time: 23.323 ms
+select * from gp_segment_configuration order by 1;
+ dbid | content | role | preferred_role | mode | status | port | hostname | address |        datadir         
+------+---------+------+----------------+------+--------+------+----------+---------+------------------------
+    1 |      -1 | p    | p              | n    | u      | 6432 | mdw      | mdw     | /data1/master/gpseg-1
+    2 |       0 | p    | p              | s    | u      | 6000 | sdw1     | sdw1    | /data1/primary/gpseg0
+    3 |       1 | p    | p              | s    | u      | 6001 | sdw1     | sdw1    | /data1/primary/gpseg1
+    4 |       2 | p    | p              | s    | u      | 6002 | sdw1     | sdw1    | /data2/primary/gpseg2
+    5 |       3 | p    | p              | s    | u      | 6003 | sdw1     | sdw1    | /data2/primary/gpseg3
+    6 |       4 | p    | p              | s    | u      | 6004 | sdw1     | sdw1    | /data3/primary/gpseg4
+    7 |       5 | p    | p              | s    | u      | 6005 | sdw1     | sdw1    | /data3/primary/gpseg5
+    8 |       6 | p    | p              | s    | u      | 6000 | sdw2     | sdw2    | /data1/primary/gpseg6
+    9 |       7 | p    | p              | s    | u      | 6001 | sdw2     | sdw2    | /data1/primary/gpseg7
+   10 |       8 | p    | p              | s    | u      | 6002 | sdw2     | sdw2    | /data2/primary/gpseg8
+   11 |       9 | p    | p              | s    | u      | 6003 | sdw2     | sdw2    | /data2/primary/gpseg9
+   12 |      10 | p    | p              | s    | u      | 6004 | sdw2     | sdw2    | /data3/primary/gpseg10
+   13 |      11 | p    | p              | s    | u      | 6005 | sdw2     | sdw2    | /data3/primary/gpseg11
+   14 |      -1 | m    | m              | s    | u      | 6432 | sdw1     | sdw1    | /data1/master/gpseg-1
+   15 |       0 | m    | m              | s    | u      | 7000 | sdw2     | sdw2    | /data1/mirror/gpseg0
+   16 |       1 | m    | m              | s    | u      | 7001 | sdw2     | sdw2    | /data1/mirror/gpseg1
+   17 |       2 | m    | m              | s    | u      | 7002 | sdw2     | sdw2    | /data2/mirror/gpseg2
+   18 |       3 | m    | m              | s    | u      | 7003 | sdw2     | sdw2    | /data2/mirror/gpseg3
+   19 |       4 | m    | m              | s    | u      | 7004 | sdw2     | sdw2    | /data3/mirror/gpseg4
+   20 |       5 | m    | m              | s    | u      | 7005 | sdw2     | sdw2    | /data3/mirror/gpseg5
+   21 |       6 | m    | m              | s    | u      | 7000 | sdw1     | sdw1    | /data1/mirror/gpseg6
+   22 |       7 | m    | m              | s    | u      | 7001 | sdw1     | sdw1    | /data1/mirror/gpseg7
+   23 |       8 | m    | m              | s    | u      | 7002 | sdw1     | sdw1    | /data2/mirror/gpseg8
+   24 |       9 | m    | m              | s    | u      | 7003 | sdw1     | sdw1    | /data2/mirror/gpseg9
+   25 |      10 | m    | m              | s    | u      | 7004 | sdw1     | sdw1    | /data3/mirror/gpseg10
+   26 |      11 | m    | m              | s    | u      | 7005 | sdw1     | sdw1    | /data3/mirror/gpseg11
+(26 rows)
+
+Time: 0.604 ms
+Result:|./1.01_create_db.sh|2023-01-01 23:04:46|2023-01-01 23:04:46|0

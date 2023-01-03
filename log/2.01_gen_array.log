@@ -1,0 +1,22 @@
+Timing is on.
+set search_path to equipment,public
+SET
+Time: 10.920 ms
+truncate table equipment.eq_data_raw_with_array_inc;
+TRUNCATE TABLE
+Time: 2025.432 ms
+INSERT INTO equipment.eq_data_raw_with_array_inc
+SELECT line, eqp_cd, unit_cd, param_cd,
+array_agg(processid order by act_time) as processid,
+array_agg(stepseq order by act_time) as stepseq,
+array_agg(root_nm order by act_time) as root_nm,
+array_agg(leaf_nm order by act_time) as root_nm,
+array_agg(act_time order by act_time) as act_time,
+array_agg(param_value order by act_time) as param_value,
+date_trunc('DAY', act_time) create_time
+FROM equipment.eq_data_raw_inc
+group by line,eqp_cd, unit_cd, param_cd,date_trunc('DAY', act_time)
+;
+INSERT 0 5058812
+Time: 1680986.946 ms
+Result:|./1.07_gen_array.sh|2023-01-02 00:43:53|2023-01-02 01:11:56|1683

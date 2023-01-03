@@ -1,0 +1,46 @@
+Timing is on.
+set search_path to equipment,public
+SET
+Time: 10.802 ms
+/*
+select 'equipment.eq_data_raw                     ' as table_nm, count(*) cnt from  equipment.eq_data_raw                    ;
+--increase 4 times
+select 'equipment.eq_data_raw_inc                 ' as table_nm, count(*) cnt from  equipment.eq_data_raw_inc                ;
+select 'equipment.eq_data_raw_with_array_inc      ' as table_nm, count(*) cnt from  equipment.eq_data_raw_with_array_inc     ;
+
+--Master Table
+select 'equipment.eqp_info                        ' as table_nm, count(*) cnt from  equipment.eqp_info                       ;
+select 'equipment.param_info                      ' as table_nm, count(*) cnt from  equipment.param_info                     ;
+select 'equipment.process_info                    ' as table_nm, count(*) cnt from  equipment.process_info                   ;
+select 'equipment.step_info                       ' as table_nm, count(*) cnt from  equipment.step_info                      ;
+select 'equipment.unit_info                       ' as table_nm, count(*) cnt from  equipment.unit_info                      ;
+*/
+select 'equipment.eq_data_raw_inc' as table_nm, count(*) cnt 
+  from equipment.eq_data_raw_inc;
+         table_nm          |    cnt     
+---------------------------+------------
+ equipment.eq_data_raw_inc | 1207034256
+(1 row)
+
+Time: 44470.440 ms
+select 'equipment.eq_data_raw_with_array_inc ' as table_nm, count(*) cnt 
+  from  equipment.eq_data_raw_with_array_inc;
+               table_nm                |   cnt   
+---------------------------------------+---------
+ equipment.eq_data_raw_with_array_inc  | 5058812
+(1 row)
+
+Time: 5535.105 ms
+select 'equipment.eq_data_raw_with_array_inc_unnest' as table_nm
+     ,  (select count(*) 
+   from (select unnest(processid) cnt 
+                   from equipment.eq_data_raw_with_array_inc
+                ) tmp
+        ) unnest_cnt;
+                  table_nm                   | unnest_cnt 
+---------------------------------------------+------------
+ equipment.eq_data_raw_with_array_inc_unnest | 1207034256
+(1 row)
+
+Time: 22321.714 ms
+Result:|./2.05_table_cnt.sh|2023-01-03 04:46:52|2023-01-03 04:48:04|72

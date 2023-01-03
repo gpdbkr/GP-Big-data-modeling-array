@@ -1,0 +1,86 @@
+Timing is on.
+set search_path to equipment,public
+SET
+Time: 10.317 ms
+/* Drop Object*/
+DROP SCHEMA IF EXISTS  equipment CASCADE;
+DROP SCHEMA
+Time: 23.461 ms
+DROP ROLE IF EXISTS udba;
+ERROR:  role "udba" cannot be dropped because some objects depend on it
+DETAIL:  206 objects in database edu
+213 objects in database skon
+Time: 0.559 ms
+DROP ROLE IF EXISTS uadhoc;
+ERROR:  role "uadhoc" cannot be dropped because some objects depend on it
+DETAIL:  72 objects in database edu
+1 object in database skon
+Time: 0.313 ms
+DROP ROLE IF EXISTS uoltp;
+ERROR:  role "uoltp" cannot be dropped because some objects depend on it
+DETAIL:  56 objects in database edu
+1 object in database skon
+Time: 0.146 ms
+DROP ROLE IF EXISTS uetl;
+DROP ROLE
+Time: 16.075 ms
+DROP RESOURCE QUEUE rqoltp;
+ERROR:  resource queue "rqoltp" is used by at least one role
+Time: 0.303 ms
+DROP RESOURCE QUEUE rqadhoc;
+ERROR:  resource queue "rqadhoc" is used by at least one role
+Time: 0.124 ms
+DROP RESOURCE QUEUE rqbatch;
+ERROR:  resource queue "rqbatch" is used by at least one role
+Time: 0.126 ms
+/* Resource Group */
+CREATE RESOURCE GROUP rgoltp WITH (concurrency=30, cpu_rate_limit=30, memory_limit=0);
+ERROR:  resource group "rgoltp" already exists
+Time: 0.234 ms
+CREATE RESOURCE GROUP rgadhoc WITH (concurrency=30, cpu_rate_limit=20, memory_limit=0);
+ERROR:  resource group "rgadhoc" already exists
+Time: 0.126 ms
+CREATE RESOURCE GROUP rgbatch WITH (concurrency=30, cpu_rate_limit=10, memory_limit=0);
+ERROR:  resource group "rgbatch" already exists
+Time: 0.115 ms
+/* Role */
+CREATE ROLE uoltp   LOGIN ENCRYPTED PASSWORD 'uoltp'   RESOURCE QUEUE rqoltp;
+ERROR:  role "uoltp" already exists
+Time: 0.135 ms
+CREATE ROLE uadhoc  LOGIN ENCRYPTED PASSWORD 'uadhoc'  RESOURCE QUEUE rqadhoc;
+ERROR:  role "uadhoc" already exists
+Time: 0.116 ms
+CREATE ROLE udba    LOGIN ENCRYPTED PASSWORD 'udba'    RESOURCE QUEUE rqbatch;
+ERROR:  role "udba" already exists
+Time: 0.111 ms
+CREATE ROLE uetl    LOGIN ENCRYPTED PASSWORD 'changeme';
+NOTICE:  resource group required -- using default resource group "default_group"
+CREATE ROLE
+Time: 18.943 ms
+alter role uoltp  resource group rgoltp;
+ALTER ROLE
+Time: 15.336 ms
+alter role uadhoc resource group rgadhoc;
+ALTER ROLE
+Time: 22.443 ms
+alter role udba   resource group rgbatch;
+ALTER ROLE
+Time: 17.806 ms
+/* Schema */
+CREATE SCHEMA equipment;
+CREATE SCHEMA
+Time: 22.315 ms
+/* Grant */
+GRANT ALL ON SCHEMA equipment TO uoltp ;
+GRANT
+Time: 17.466 ms
+GRANT ALL ON SCHEMA equipment TO uadhoc ;
+GRANT
+Time: 19.464 ms
+GRANT ALL ON SCHEMA equipment TO udba   ;
+GRANT
+Time: 14.424 ms
+GRANT ALL ON SCHEMA equipment TO uetl;
+GRANT
+Time: 15.599 ms
+Result:|./1.02_create_role.sh|2023-01-01 23:06:24|2023-01-01 23:06:24|0

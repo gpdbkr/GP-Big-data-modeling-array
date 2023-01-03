@@ -1,0 +1,48 @@
+Timing is on.
+set search_path to equipment,public
+SET
+Time: 10.977 ms
+select equipment.create_data(20,10);
+NOTICE:  0th inserted [30324964]
+NOTICE:  1th inserted [30324487]
+NOTICE:  2th inserted [30329357]
+NOTICE:  3th inserted [30321821]
+NOTICE:  4th inserted [30323962]
+NOTICE:  5th inserted [30327186]
+NOTICE:  6th inserted [30317950]
+NOTICE:  7th inserted [30319546]
+NOTICE:  8th inserted [30317002]
+NOTICE:  9th inserted [30323509]
+ create_data 
+-------------
+ SUCCESS
+(1 row)
+
+Time: 429300.659 ms
+select equipment.create_data34(20,10);
+ERROR:  function equipment.create_data34(integer, integer) does not exist
+LINE 1: select equipment.create_data34(20,10);
+               ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+Time: 0.254 ms
+INSERT INTO equipment.eq_data_raw_inc
+(line, eqp_cd, unit_cd, param_cd, processid, stepseq, root_nm, leaf_nm, act_time, param_value)
+select
+       line, eqp_cd, unit_cd, param_cd, processid, stepseq, root_nm, leaf_nm, act_time + '1 second'::interval, param_value
+from   equipment.eq_data_raw
+where  act_time >= '2022-01-01'::timestamp
+and    act_time  < '2022-03-01'::timestamp
+;
+INSERT 0 301758564
+Time: 151992.283 ms
+INSERT INTO equipment.eq_data_raw_inc
+(line, eqp_cd, unit_cd, param_cd, processid, stepseq, root_nm, leaf_nm, act_time, param_value)
+select
+       line, eqp_cd, unit_cd, param_cd, processid, stepseq, root_nm, leaf_nm, act_time + '3 second'::interval, param_value
+from   equipment.eq_data_raw
+where  act_time >= '2022-01-01'::timestamp
+and    act_time  < '2022-03-01'::timestamp
+;
+INSERT 0 301758564
+Time: 152384.843 ms
+Result:|./1.06_gen_data.sh|2023-01-01 23:18:31|2023-01-01 23:30:45|734
