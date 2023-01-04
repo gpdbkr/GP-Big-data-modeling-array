@@ -12,7 +12,7 @@ When integrated data is used, not only the size of the table but also the size o
 
 When applied to the production environment, there was a performance improvement effect of 5 to 10 times or more.
 
-- Example script
+- Demo video
   - 한글 버전: https://youtu.be/_8G0v__y63g
   - English version: https://youtu.be/EdmpJSOX7lw 
 
