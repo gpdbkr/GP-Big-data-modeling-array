@@ -257,11 +257,11 @@ Result:|./2.12_array_single_perf.sh|2023-01-02 01:23:42|2023-01-02 01:23:43|1
   - Master node: 4 vcore, 32GB
   - Data node: 2 node, 8 vcore, 64GB
 
-- 2000개 쿼리 수행 소요시간 / Elapsed time for executing 2000 queries
+- 2,000개 쿼리 수행 소요시간 / Elapsed time for executing 2,000 queries
   - raw data type  : 2040 sec
   - array data type:  257 sec
 
-- 2000개 쿼리 개당 평균 소요시간 / Average elapsed time for each query of 2000 queries:
+- 2,000개 쿼리 개당 평균 소요시간 / Average elapsed time for each query of 2,000 queries:
   - raw data type  : 19969.7 ms
   - array data type:   285.2 ms
 ```
