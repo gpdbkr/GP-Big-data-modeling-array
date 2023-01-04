@@ -22,6 +22,7 @@ When applied to the production environment, there was a performance improvement 
 ```
 1) Download and unzip the example script
 소스를 다운 받아 GP-Big-data-modeling-array-main.zip을 마스터 노드의 /data/ 폴더에 copy
+
 Download the source and copy GP-Big-data-modeling-array-main.zip to the master node's /data folder
 
 [gpadmin@mdw ~]$ cd /data
@@ -206,7 +207,9 @@ WHERE 1 = 1
 
 ## 테이블 사이즈 / table size
 데이터에 따라서 다르겠지만, 테이블 사이즈도 줄어들고, 인덱스 사이즈가 1% 정도로 아주 많이 줄어들었습니다.
+
 Depending on the data, the table size has also decreased, and the index size has decreased a lot, about 1%.
+
 ```
 [gpadmin@mdw log]$ cat 2.04_table_size.sh.log
 Time: 10.286 ms
@@ -218,7 +221,9 @@ Time: 10.286 ms
 
 ## 싱글 쿼리 성능/ single query performance
 동일한 쿼리 결과이지만, 성능은 대략 5배 정도 차이 발생하였습니다.
+
 The same query results, but the performance is about 5 times different.
+
 ```
 [gpadmin@mdw log]$ tail 2.1*.out
 ==> 2.11_raw_single_perf.sh.out <==
