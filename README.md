@@ -249,7 +249,7 @@ Result:|./2.12_array_single_perf.sh|2023-01-02 01:23:42|2023-01-02 01:23:43|1
 
 ## 2000개의 쿼리 성능 테스트 결과 / 2000 queries performance test results
 - 테스트 환경/Test environment
-  - Master node: 4 vcore
+  - Master node: 4 vcore, 32GB
   - Data node: 2 node, 8 vcore, 64GB
 
 - 2000개 쿼리 수행 소요시간 / Elapsed time for executing 2000 queries
