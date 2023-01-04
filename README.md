@@ -145,7 +145,7 @@ Time: 10.286 ms
  equipment | eq_data_raw_with_array_inc |        7862 |          7706 |           156
 ```
 
-## 싱글 쿼리 / single query performance
+## 싱글 쿼리 성능/ single query performance
 동일한 쿼리 결과이지만, 성능은 대략 5배 정도 차이 발생하였습니다.
 The same query results, but the performance is about 5 times different.
 ```
@@ -176,7 +176,7 @@ Result:|./2.12_array_single_perf.sh|2023-01-02 01:23:42|2023-01-02 01:23:43|1
 [gpadmin@mdw log]$
 ```
 
-## 2000개의 쿼리 테스트 결과 / 2000 query test results
+## 2000개의 쿼리 성능 테스트 결과 / 2000 queries performance test results
 - 테스트 환경/Test environment
   - Master node: 4 vcore
   - Data node: 2 node, 8 vcore, 64GB
