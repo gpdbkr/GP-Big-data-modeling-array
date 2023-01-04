@@ -13,7 +13,8 @@ When integrated data is used, not only the size of the table but also the size o
 When applied to the production environment, there was a performance improvement effect of 5 to 10 times or more.
 
 Example script:
-https://www.youtube.com/watch?v=_8G0v__y63g
+한글 버전: https://youtu.be/_8G0v__y63g
+English version: https://youtu.be/EdmpJSOX7lw 
 
 
 ## script setup
@@ -76,6 +77,60 @@ sql_raw_19.sql
 
 ./log:                        # log folder
 
+```
+
+## 테이블 스키마 / table schema
+```
+## raw type
+demo=# \d equipment.eq_data_raw_inc
+     Append-Only Table "equipment.eq_data_raw_inc"
+   Column    |            Type             | Modifiers
+-------------+-----------------------------+-----------
+ line        | text                        |
+ eqp_cd      | integer                     |
+ unit_cd     | integer                     |
+ param_cd    | numeric                     |
+ processid   | text                        |
+ stepseq     | text                        |
+ root_nm     | text                        |
+ leaf_nm     | integer                     |
+ act_time    | timestamp without time zone |
+ param_value | numeric                     |
+Compression Type: zstd
+Compression Level: 7
+Block Size: 32768
+Checksum: t
+Indexes:
+    "idx_eq_data_raw_inc_03" btree (param_cd)
+Number of child tables: 13 (Use \d+ to list them.)
+Distributed randomly
+Partition by: (act_time)
+
+## array type
+demo=# \d equipment.eq_data_raw_with_array_inc
+Append-Only Table "equipment.eq_data_raw_with_array_inc"
+   Column    |             Type              | Modifiers
+-------------+-------------------------------+-----------
+ line        | text                          |
+ eqp_cd      | integer                       |
+ unit_cd     | integer                       |
+ param_cd    | numeric                       |
+ processid   | text[]                        | ==> Array
+ stepseq     | text[]                        | ==> Array
+ root_nm     | text[]                        | ==> Array
+ leaf_nm     | integer[]                     | ==> Array
+ act_time    | timestamp without time zone[] | ==> Array
+ param_value | numeric[]                     | ==> Array
+ create_time | date                          |
+Compression Type: zstd
+Compression Level: 7
+Block Size: 32768
+Checksum: t
+Indexes:
+    "idx_eq_data_raw_with_array_inc_03" btree (param_cd)
+Number of child tables: 13 (Use \d+ to list them.)
+Distributed randomly
+Partition by: (create_time)
 ```
 
 ## 테이블 사이즈 / table size
