@@ -133,6 +133,77 @@ Distributed randomly
 Partition by: (create_time)
 ```
 
+## raw table을 array type table로 적재 / load raw table into array type table
+raw 데이터를 group by와 array_agg 함수를 이용해서 array data type으로 쉽게 변환할 수 있습니다.
+
+You can easily convert raw data to array data type using group by and array_agg functions.
+```
+[gpadmin@mdw modeling]$ cat 2.01_gen_array.sh
+...
+INSERT INTO equipment.eq_data_raw_with_array_inc
+SELECT line, eqp_cd, unit_cd, param_cd,
+	array_agg(processid order by act_time) as processid,
+	array_agg(stepseq order by act_time) as stepseq,
+	array_agg(root_nm order by act_time) as root_nm,
+	array_agg(leaf_nm order by act_time) as root_nm,
+	array_agg(act_time order by act_time) as act_time,
+	array_agg(param_value order by act_time) as param_value,
+	date_trunc('DAY', act_time) create_time
+FROM equipment.eq_data_raw_inc
+group by line,eqp_cd, unit_cd, param_cd,date_trunc('DAY', act_time)
+;
+...
+[gpadmin@mdw modeling]$
+```
+
+## array data 타입 쿼리 / array data type query
+array 컬럼에 대해서 unnest 함수를 이용하여 array에서 row로 쉽게 전환할 수 있습니다.
+
+You can easily convert from  array to row by using the unnest function for array columns.
+```
+[gpadmin@mdw modeling]$ cat 2.11_raw_single_perf.sh
+...
+SELECT
+        data.processid,
+        data.stepseq,
+        data.root_nm,
+        data.leaf_nm,
+        info.eqp_nm,
+        info.unit_nm,
+        info.param_nm
+FROM equipment.eq_data_raw_inc as data,
+equipment.param_info info
+WHERE 1 = 1
+        AND data.eqp_cd = info.eqp_cd
+        AND data.unit_cd = info.unit_cd
+        AND data.param_cd = info.param_cd
+        and data.param_cd in (1055502,2147982,4146252)
+	AND data.act_time >= '2022-01-01 00:00:00' and act_time < '2022-02-28 00:00:00'
+;
+...
+[gpadmin@mdw modeling]$ cat 2.12_array_single_perf.sh
+...
+SELECT
+        unnest(processid) as processid,
+        unnest(stepseq) as stepseq,
+        unnest(root_nm) as root_nm,
+        unnest(leaf_nm) as leaf_nm,
+        info.eqp_nm,
+        info.unit_nm,
+        info.param_nm
+FROM equipment.eq_data_raw_with_array_inc data,
+equipment.param_info info
+WHERE 1 = 1
+        AND data.eqp_cd = info.eqp_cd
+        AND data.unit_cd = info.unit_cd
+        AND data.param_cd = info.param_cd
+        and data.param_cd in (1055502,2147982,4146252)
+	AND data.create_time >= '2022-01-01 00:00:00' and data.create_time < '2022-02-28 00:00:00'
+;
+...
+```
+
+
 ## 테이블 사이즈 / table size
 데이터에 따라서 다르겠지만, 테이블 사이즈도 줄어들고, 인덱스 사이즈가 1% 정도로 아주 많이 줄어들었습니다.
 Depending on the data, the table size has also decreased, and the index size has decreased a lot, about 1%.
