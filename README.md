@@ -122,16 +122,25 @@ Result:|./2.12_array_single_perf.sh|2023-01-02 01:23:42|2023-01-02 01:23:43|1
 ```
 
 ## 2000개의 쿼리 테스트 결과 / 2000 query test results
-test environment
+Test environment
 Master node: 4 vcore
+
 Data node: 2 node, 8 vcore, 64GB
 
+
+
 Elapsed time for executing 2000 queries
+
 raw data type  : 2040 sec
+
 array data type:  257 sec
 
+
+
 Average elapsed time for each query of 2000 queries:
+
 raw data type  : 19969.7 ms
+
 array data type:   285.2 ms
 ```
 [gpadmin@mdw log]$ tail 2.2*.log
