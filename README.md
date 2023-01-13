@@ -32,6 +32,19 @@ Download the source and copy GP-Big-data-modeling-array-main.zip to the master n
 [gpadmin@mdw data]$ mv GP-Big-data-modeling-array-main modeling
 ```
 
+## Usage
+Once the github repo is downloadd to `mdw` node, follow the below steps for how to execute them. Detailed explaination for each file refers to the section [path and file description](#path-and-file-description)
+
+```
+cd modeling
+
+## to set up the database and load data
+./1.all.sh
+
+## to load dat to arrary and execute the performance testing
+./2.all.sh
+```
+
 
 ## path and file description
 ```
