@@ -14,7 +14,7 @@ When applied to the production environment, there was a performance improvement 
 
 - Demo video
   - 한글 버전: https://youtu.be/_8G0v__y63g
-  - English version: https://youtu.be/EdmpJSOX7lw 
+  - English version: https://www.youtube.com/watch?v=QA2L5J39k1I
 
 
 ## script setup
