@@ -21,9 +21,9 @@ DROP ROLE IF EXISTS uadhoc;
 DROP ROLE IF EXISTS uoltp;
 DROP ROLE IF EXISTS uetl;
 
-DROP RESOURCE QUEUE rqoltp;
-DROP RESOURCE QUEUE rqadhoc;
-DROP RESOURCE QUEUE rqbatch;
+DROP RESOURCE GROUP rgoltp;
+DROP RESOURCE GROUP rqadhoc;
+DROP RESOURCE GROUP rqbatch;
 
 /* Resource Group */
 CREATE RESOURCE GROUP rgoltp WITH (concurrency=30, cpu_rate_limit=30, memory_limit=0);
@@ -31,11 +31,12 @@ CREATE RESOURCE GROUP rgadhoc WITH (concurrency=30, cpu_rate_limit=20, memory_li
 CREATE RESOURCE GROUP rgbatch WITH (concurrency=30, cpu_rate_limit=10, memory_limit=0);
 
 /* Role */
-CREATE ROLE uoltp   LOGIN ENCRYPTED PASSWORD 'uoltp'   RESOURCE QUEUE rqoltp;
-CREATE ROLE uadhoc  LOGIN ENCRYPTED PASSWORD 'uadhoc'  RESOURCE QUEUE rqadhoc;
-CREATE ROLE udba    LOGIN ENCRYPTED PASSWORD 'udba'    RESOURCE QUEUE rqbatch;
+CREATE ROLE uoltp   LOGIN ENCRYPTED PASSWORD 'uoltp'   ;
+CREATE ROLE uadhoc  LOGIN ENCRYPTED PASSWORD 'uadhoc'  ;
+CREATE ROLE udba    LOGIN ENCRYPTED PASSWORD 'udba'    ;
 CREATE ROLE uetl    LOGIN ENCRYPTED PASSWORD 'changeme';
 
+/* Assign role to resource group */
 alter role uoltp  resource group rgoltp;
 alter role uadhoc resource group rgadhoc;
 alter role udba   resource group rgbatch;
